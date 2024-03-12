@@ -1,0 +1,2 @@
+    echo "Best School"
+    (( count++ ))
