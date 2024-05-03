@@ -4,6 +4,52 @@
 
 while true
 do
-  echo "To infinity and beyond"
+  echo "Generating target List"
   sleep 2
+  echo "1. Samuel sam"
+  sleep 2
+  echo "2. Zee PGH"
+  sleep 2
+  echo "1. Ahmed I"
+  sleep 2
+  echo "4. Hasjal"
+  sleep 2
+  echo "5. Nyakeh"
+  sleep 2
+  echo "6. Kesuma"
+  sleep 2
+  echo " "
+  echo "Systems hacked"
+  sleep 2
+  echo " "
+  echo "Tranfering Nle 2.00"
+  echo "From each account to your account"
+  sleep 4
+  echo " "
+  echo "Going thtough their: orange money, Q-money, Afrimoney"
+  echo "This may take a while"
+  echo " "
+  sleep 7
+  echo "Processing transfer"
+  sleep 2
+  echo "..............."
+  echo " "
+  sleep 6
+  echo "Access Denined"
+  echo " "
+  sleep 4
+  echo "Bypassing credential checks"
+  echo "..............."
+  echo " "
+  sleep 6
+  echo "Access Granted"
+  echo " "
+  sleep 3
+  echo "Processing transfer again..............."
+#   echo "
+  sleep 7
+  echo "Transfer complete check your phone"
+  sleep 20
+  echo "File transfer done"
+  echo "And now we are done"
 done
