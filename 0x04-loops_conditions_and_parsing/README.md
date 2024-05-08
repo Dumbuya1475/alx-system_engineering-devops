@@ -1,5 +1,4 @@
-# Shell Loops, Conditions
-
+# Shell Loops, Conditions,
 ![](https://phoenixnap.com/kb/wp-content/uploads/2021/12/individual.sh-for-loop-script.png)
 
 ## Use this command to generate RSA key `ssh-keygen -t rsa`

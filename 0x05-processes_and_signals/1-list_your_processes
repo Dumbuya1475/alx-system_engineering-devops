@@ -4,4 +4,3 @@
 #+  which might not have a TTY.
 
 ps -auxf
-

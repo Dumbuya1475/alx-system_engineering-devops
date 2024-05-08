@@ -73,4 +73,3 @@ In this project, I learned about handling process ID's and signals in Bash with 
 * **11. Zombie**
   * [102-zombie.c](./102-zombie.c): C program that creates five zombie processes.
   * For every zombie created, displays `Zombie process created, PID: <ZOMBIE_PID>`.
-  
