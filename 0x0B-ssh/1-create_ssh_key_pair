@@ -1,10 +1,16 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Set the private key name
+# Set key name and passphrase
 KEY_NAME="school"
+PASSPHRASE="betty"
 
-# Generate the key pair with 4096 bits and passphrase "betty"
-ssh-keygen -t rsa -b 4096 -f "$KEY_NAME" -N "betty"
+# Generate the key pair with comments and passphrase
+ssh-keygen -t rsa -b 4096 -f "$KEY_NAME" -C "Dumbuya (dumbuya366@gmail.com)" -N "$PASSPHRASE"
 
-# Print success message
-echo "SSH key pair created successfully!"
+# Check for successful key generation
+if [ $? -eq 0 ]; then
+  echo "RSA key pair ($KEY_NAME) created successfully!"
+  echo "**Important:** Remember your passphrase: $PASSPHRASE"
+else
+  echo "Error creating key pair. Please check the logs for details."
+fi
