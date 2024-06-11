@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/eve bash
 # Set key name and passphrase
 KEY_NAME="school"
 PASSPHRASE="betty"
