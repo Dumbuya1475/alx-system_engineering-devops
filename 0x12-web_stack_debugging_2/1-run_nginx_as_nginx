@@ -1,58 +1,7 @@
-#!/bin/bash
-
-# This script configures Nginx to run as the nginx user and listen on port 8080
-
-# Path to the main Nginx configuration file
-NGINX_CONF="/etc/nginx/nginx.conf"
-DEFAULT_SITE_CONF="/etc/nginx/sites-available/default"
-
-# Function to check if a user exists
-user_exists() {
-    id -u "$1" >/dev/null 2>&1
-}
-
-# Ensure Nginx configuration file exists
-if [ ! -f "$NGINX_CONF" ]; then
-    echo "Nginx configuration file not found at $NGINX_CONF"
-    exit 1
-fi
-
-# Backup the original Nginx configuration
-cp $NGINX_CONF ${NGINX_CONF}.bak
-cp $DEFAULT_SITE_CONF ${DEFAULT_SITE_CONF}.bak
-
-# Update the Nginx user directive to run as nginx user
-sed -i 's/^user .*/user nginx;/' "$NGINX_CONF"
-
-# Update the default site to listen on port 8080
-if grep -q 'listen 80;' "$DEFAULT_SITE_CONF"; then
-    sed -i 's/listen 80;/listen 8080;/' "$DEFAULT_SITE_CONF"
-else
-    echo "Warning: No 'listen 80;' found in $DEFAULT_SITE_CONF. Please check the configuration."
-fi
-
-# Ensure the nginx user exists, create if not
-if ! user_exists "nginx"; then
-    echo "Creating nginx user..."
-    useradd -r -s /sbin/nologin nginx
-fi
-
-# Adjust ownership and permissions for Nginx directories
-chown -R nginx:nginx /var/log/nginx
-chown -R nginx:nginx /var/lib/nginx
-chown -R nginx:nginx /etc/nginx
-chown -R nginx:nginx /usr/share/nginx/html
-
-# Reload Nginx to apply changes
-systemctl reload nginx
-
-# Verify Nginx is running as the nginx user
-echo "Verifying Nginx process..."
-ps aux | grep [n]ginx
-
-# Check if Nginx is listening on port 8080
-echo "Verifying Nginx is listening on port 8080..."
-netstat -tuln | grep ':8080'
-
-echo "Configuration completed."
-
+#!/usr/bin/env bash
+# Fixes a web server to run Nginx as the nginx user listening on port 8080.
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
+chmod 644 /etc/nginx/nginx.conf
+pkill apache2
+sudo -u nginx service nginx start
