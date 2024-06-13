@@ -1,10 +1,38 @@
-#!/usr/bin/env bash
-# Fixes a web server to run Nginx as the nginx user listening on port 8080.
-#!/usr/bin/env bash
-# Fixes a web server to run Nginx as the nginx user listening on port 8080.
-sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
-sed -i "s/80/8080/g" /etc/nginx/sites-available/default
-chmod 644 /etc/nginx/nginx.conf
-pkill apache2
-sudo -u nginx service nginx start
+#!/bin/bash
+
+# Update Nginx configuration to listen on port 8080 and run as nginx user
+NGINX_CONF="/etc/nginx/nginx.conf"
+
+# Check if the NGINX_CONF file exists
+if [ ! -f "$NGINX_CONF" ]; then
+    echo "Nginx configuration file not found at $NGINX_CONF"
+    exit 1
+fi
+
+# Backup the original configuration
+cp $NGINX_CONF $NGINX_CONF.bak
+
+# Modify the Nginx configuration
+sed -i 's/user  .*/user nginx;/g' $NGINX_CONF
+sed -i 's/listen 80;/listen 8080;/g' /etc/nginx/sites-available/default
+
+# Ensure the nginx user exists
+if ! id -u nginx > /dev/null 2>&1; then
+    echo "Creating nginx user..."
+    useradd -r -s /sbin/nologin nginx
+fi
+
+# Modify ownership and permissions if necessary
+chown -R nginx:nginx /var/log/nginx
+chown -R nginx:nginx /var/lib/nginx
+chown -R nginx:nginx /etc/nginx
+chown -R nginx:nginx /usr/share/nginx/html
+
+# Restart the Nginx service
+systemctl restart nginx
+
+# Verify if Nginx is running as nginx user on port 8080
+ps aux | grep nginx
+
+echo "Nginx should now be running as the nginx user on port 8080."
 
