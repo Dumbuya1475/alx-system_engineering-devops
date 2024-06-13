@@ -1,27 +1,10 @@
-#!/bin/bash
-
-# Update paths based on your findings
-NGINX_CONF_DIR=/etc/nginx
-NGINX_DATA_DIR=/var/lib/nginx
-
-# Create the nginx user and group if they don't exist
-id -u nginx &>/dev/null || useradd -r -s /sbin/nologin nginx
-
-# Set ownership of Nginx directories
-chown -R nginx:nginx "${NGINX_CONF_DIR}" "${NGINX_DATA_DIR}"
-
-# Modify the default Nginx configuration
-sed -i "s/user nobody nobody;/user nginx nginx;/" "${NGINX_CONF_DIR}/nginx.conf"
-
-# Replace the port number in the default configuration (adjust based on your needs)
-sed -i 's/listen 80;/listen 8080;/' "${NGINX_CONF_DIR}/nginx.conf"
-
-# Allow the nginx user to access network ports
-setcap cap_net_bind_service=ep /usr/sbin/nginx
-
-# Test Nginx configuration for syntax errors
-nginx -t
-
-# Start Nginx as the nginx user
-su - nginx -c "nginx -g 'daemon off;'"
+#!/usr/bin/env bash
+# Fixes a web server to run Nginx as the nginx user listening on port 8080.
+#!/usr/bin/env bash
+# Fixes a web server to run Nginx as the nginx user listening on port 8080.
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
+chmod 644 /etc/nginx/nginx.conf
+pkill apache2
+sudo -u nginx service nginx start
 

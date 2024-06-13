@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git config --global user.name "Mohamed Super Dumbuya"
+git config --global user.email "dumbuya366@gmail.com"
