@@ -7,6 +7,7 @@ content =>"
 	#SSH client configuration
 	host*
 	IdentityFle ~/.ssh/school
+	",
 }
 include stdlib
 
