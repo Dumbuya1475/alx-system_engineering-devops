@@ -17,6 +17,13 @@ def number_of_subscribers(subreddit):
 
 # Example usage:
 if __name__ == '__main__':
-    subreddit = input("Enter a subreddit: ")
-    subscribers = number_of_subscribers(subreddit)
-    print(f"{subreddit} has {subscribers} subscribers")
+    import sys
+    if len(sys.argv) < 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        subreddit = sys.argv[1]
+        subscribers = number_of_subscribers(subreddit)
+        if subscribers == 0:
+            print("OK")
+        else:
+            print(subscribers)
