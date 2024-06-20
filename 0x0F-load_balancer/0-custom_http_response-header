@@ -3,7 +3,7 @@
 
 # Step 1: Update package list and install Nginx
 sudo apt update
-sudo apt install -y nginx
+sudo apt install -y 
 
 # Step 2: Ensure the server hostname is set correctly
 # Replace [STUDENT_ID] with your actual student ID.
